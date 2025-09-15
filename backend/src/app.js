@@ -1,29 +1,30 @@
 const express = require('express');
 const cors = require("cors");
+const path = require("path"); // 🔹 add this
 const app = express();
 
-// Import your food routes
+// Import your routes
 const foodRoutes = require('./routes/food.routes.js');
 const authRoutes = require("./routes/auth.routes.js");
 
-
-// Middleware to parse JSON and URL-encoded bodies
+// Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors({
-  origin: "http://localhost:5173",  // 👈 must match your frontend port
-  credentials: true,                // 👈 allow cookies / withCredentials
+  origin: "http://localhost:5173",  // 👈 during local dev
+  credentials: true,
 }));
 
-
-// Log a message to see what you're importing for debugging
-console.log('Importing foodRoutes in app.js:', foodRoutes);
-
-// Use the food and auth routes
+// Routes
 app.use('/api/auth/', authRoutes);
 app.use('/api/food', foodRoutes);
 
-// Other routes or middleware would go here...
+// 🔹 Serve Vite frontend build
+app.use(express.static(path.join(__dirname, "../../frontend/dist")));
 
-// Export the app for use in your server.js file
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "../../frontend/dist/index.html"));
+});
+
+// Export app
 module.exports = app;
