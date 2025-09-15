@@ -1,0 +1,30 @@
+.profile-container {
+  padding: 20px;
+  text-align: center;
+  color: #fff;
+  background: #0b132b;
+  min-height: 100vh;
+}
+
+.profile-title {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+.video-section-title {
+  margin-top: 20px;
+  font-size: 1.5rem;
+}
+
+.video-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 15px;
+  margin-top: 15px;
+}
+
+.profile-video {
+  width: 100%;
+  border-radius: 8px;
+  outline: none;
+}

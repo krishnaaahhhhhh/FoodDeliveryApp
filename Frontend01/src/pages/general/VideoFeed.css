@@ -1,0 +1,161 @@
+/* Container for the full video feed */
+.video-feed-container {
+  position: relative;
+  height: 100vh;
+  overflow-y: scroll;
+  background: black;
+  scroll-snap-type: y mandatory;
+}
+
+/* Each video item takes full screen */
+.video-item {
+  position: relative;
+  height: 100vh;
+  width: 100%;
+  scroll-snap-align: start;
+}
+
+.video-content {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+/* Right-side actions (likes, save, comments) */
+.video-actions {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 25px;
+  color: white;
+}
+
+.action-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.action-btn span {
+  margin-top: 4px;
+  font-size: 12px;
+}
+
+/* Bottom overlay (description + visit button) */
+.video-overlay {
+  position: absolute;
+  bottom: 70px; /* above nav bar */
+  left: 10px;
+  color: white;
+  max-width: 70%;
+}
+
+.video-description {
+  margin-bottom: 6px;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.video-button {
+  background: #2563eb;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.video-button:hover {
+  background: #1d4ed8;
+}
+
+/* Bottom navigation bar */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background: #111;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 10px 0;
+  color: white;
+  border-top: 1px solid #333;
+}
+
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.nav-item svg {
+  font-size: 20px;
+  margin-bottom: 4px;
+}
+.bottom-nav {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  padding: 15px;
+  background: rgba(0, 0, 0, 0.6);
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
+.nav-btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  background: #ff4b2b;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.nav-btn:hover {
+  background: #ff6a4d;
+}
+.bottom-nav {
+  display: flex;
+  justify-content: space-evenly; /* evenly distribute */
+  align-items: center;
+  padding: 12px;
+  background: rgba(0, 0, 0, 0.6);
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.nav-btn {
+  flex: 1; /* make all buttons equal width */
+  margin: 0 8px; /* small gap between buttons */
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  background: #ff4b2b;
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+  text-align: center;
+}
+
+.nav-btn:hover {
+  background: #ff6a4d;
+}
+
