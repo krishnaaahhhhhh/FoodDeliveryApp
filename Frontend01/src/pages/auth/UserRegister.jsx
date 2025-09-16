@@ -1,6 +1,6 @@
 import React from "react";
 import "../../styles/auth-shared.css";
-import axios from "axios";
+import api from "../../utils/api"; // ✅ use central axios instance
 import { useNavigate } from "react-router-dom";
 
 export const UserRegister = () => {
@@ -14,11 +14,11 @@ export const UserRegister = () => {
     const password = e.target.password.value;
 
     try {
-      const response = await axios.post(
-        "https://krishnasmern-zomato.onrender.com/api/user/register", // ✅ fixed backend URL
-        { fullName, email, password },
-        { withCredentials: true }
-      );
+      const response = await api.post("/auth/user/register", {
+        fullName,
+        email,
+        password,
+      });
 
       console.log("Registration success:", response.data);
       navigate("/user/login"); // Redirect after registration

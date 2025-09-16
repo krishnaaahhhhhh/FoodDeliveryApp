@@ -10,9 +10,14 @@ const app = express();
 // Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// ✅ CORS setup
 app.use(
   cors({
-    origin: "http://localhost:5173", // during local dev
+    origin: [
+      "http://localhost:5173", // for local dev
+      "https://krishnassfooddeliveryapp.onrender.com", // deployed frontend
+    ],
     credentials: true,
   })
 );
@@ -25,10 +30,9 @@ app.use("/api/food", foodRoutes);
 const frontendPath = path.join(__dirname, "../../Frontend01/dist");
 app.use(express.static(frontendPath));
 
-// ✅ Catch-all for SPA (React/Vite)
+// ✅ Catch-all for SPA
 app.get(/.*/, (req, res) => {
   res.sendFile(path.join(frontendPath, "index.html"));
 });
 
-// Export app
 module.exports = app;

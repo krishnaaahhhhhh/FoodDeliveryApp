@@ -1,6 +1,6 @@
 import React from "react";
 import "../../styles/auth-shared.css";
-import axios from "axios";
+import api from "../../utils/api";
 import { useNavigate } from "react-router-dom";
 
 const UserLogin = () => {
@@ -13,15 +13,9 @@ const UserLogin = () => {
     const password = e.target.password.value.trim();
 
     try {
-      const response = await axios.post(
-        "http://localhost:5000/api/auth/user/login", // Backend port 5000
-        { email, password },
-        { withCredentials: true } // To allow cookies
-      );
+      const response = await api.post("/auth/user/login", { email, password });
 
       console.log("Login success:", response.data);
-
-      // Redirect to homepage or dashboard
       navigate("/");
     } catch (error) {
       console.error("Login failed:", error);

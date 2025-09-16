@@ -1,13 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "../../styles/auth-shared.css";
-import axios from "axios";
+import api from "../../utils/api";
 import { useNavigate } from "react-router-dom";
 
 export const FoodPartnerRegister = () => {
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const businessName = e.target.businessName.value;
@@ -17,26 +17,22 @@ export const FoodPartnerRegister = () => {
     const password = e.target.password.value;
     const address = e.target.address.value;
 
-    axios
-      .post(
-        "http://localhost:5000/api/auth/food-partner/register",
-        {
-          name: businessName,
-          contactName,
-          phone,
-          email,
-          password,
-          address,
-        },
-        { withCredentials: true }
-      )
-      .then((response) => {
-        console.log(response.data);
-        navigate("/create-food"); // Redirect to create food page after successful registration
-      })
-      .catch((error) => {
-        console.error("There was an error registering!", error);
+    try {
+      const response = await api.post("/auth/food-partner/register", {
+        name: businessName,
+        contactName,
+        phone,
+        email,
+        password,
+        address,
       });
+
+      console.log(response.data);
+      navigate("/create-food");
+    } catch (error) {
+      console.error("There was an error registering!", error);
+      alert("Partner registration failed!");
+    }
   };
 
   return (
@@ -115,9 +111,6 @@ export const FoodPartnerRegister = () => {
               placeholder="123 Market Street"
               autoComplete="street-address"
             />
-            <p className="small-note">
-              Full address helps customers find you faster.
-            </p>
           </div>
           <button className="auth-submit" type="submit">
             Create Partner Account

@@ -1,6 +1,7 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "../../styles/auth-shared.css";
-import axios from "axios";
+import api from "../../utils/api";
 import { useNavigate } from "react-router-dom";
 
 const FoodPartnerLogin = () => {
@@ -9,23 +10,19 @@ const FoodPartnerLogin = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const email = e.target.email.value;
-    const password = e.target.password.value;
+    const email = e.target.email.value.trim();
+    const password = e.target.password.value.trim();
 
     try {
-      const response = await axios.post(
-        "http://localhost:5000/api/auth/food-partner/login",
-        { email, password },
-        { withCredentials: true }
-      );
-
-      console.log("Login successful:", response.data);
-
-      // Redirect after successful login
+      const response = await api.post("/auth/food-partner/login", {
+        email,
+        password,
+      });
+      console.log("Login success:", response.data);
       navigate("/create-food");
     } catch (error) {
-      console.error("Login failed:", error);
-      alert("Login failed. Please check your credentials and try again.");
+      console.error("Partner login failed!", error);
+      alert("Invalid credentials or server error");
     }
   };
 
@@ -38,11 +35,9 @@ const FoodPartnerLogin = () => {
       >
         <header>
           <h1 id="partner-login-title" className="auth-title">
-            Partner login
+            Partner Sign In
           </h1>
-          <p className="auth-subtitle">
-            Access your dashboard and manage orders.
-          </p>
+          <p className="auth-subtitle">Welcome back, partner!</p>
         </header>
         <form className="auth-form" onSubmit={handleSubmit} noValidate>
           <div className="field-group">
@@ -52,8 +47,8 @@ const FoodPartnerLogin = () => {
               name="email"
               type="email"
               placeholder="business@example.com"
-              autoComplete="email"
               required
+              autoComplete="email"
             />
           </div>
           <div className="field-group">
@@ -62,9 +57,9 @@ const FoodPartnerLogin = () => {
               id="password"
               name="password"
               type="password"
-              placeholder="Password"
-              autoComplete="current-password"
+              placeholder="••••••••"
               required
+              autoComplete="current-password"
             />
           </div>
           <button className="auth-submit" type="submit">
@@ -72,7 +67,7 @@ const FoodPartnerLogin = () => {
           </button>
         </form>
         <div className="auth-alt-action">
-          New partner? <a href="/food-partner/register">Create an account</a>
+          New partner? <Link to="/food-partner/register">Create account</Link>
         </div>
       </div>
     </div>
